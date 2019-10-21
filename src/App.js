@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// import moonIcon from './images/moon.svg';
-
 import './App.scss';
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState('');
+  const [countryRegion, setCountryRegion] = useState('');
 
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setCountries(response.data);
     });
   }, []);
@@ -20,8 +19,22 @@ function App() {
     return country.name.toLowerCase().indexOf(countryName.toLowerCase()) !== -1;
   });
 
+  // Filter Regions with FilterCountryByName is the only solution I found to
+  // filter by Regions..
+  // I might use conditional rendering because it's a little bit tricky
+  // to understand but it works for now..
+  const filterCountryByRegion = filterCountryByName.filter((country) => {
+    return (
+      country.region.toLowerCase().indexOf(countryRegion.toLowerCase()) !== -1
+    );
+  });
+
   const handleCountryNameChange = (event) => {
     setCountryName(event.target.value);
+  };
+
+  const handleCountryRegionChange = (event) => {
+    setCountryRegion(event.target.value);
   };
 
   return (
@@ -37,21 +50,25 @@ function App() {
           value={countryName}
           onChange={handleCountryNameChange}
         />
-        <input
+        <select
           placeholder='Filter by Region'
           className='filter-region'
-          list='regions'
-        />
-        <datalist id='regions'>
+          id='regions'
+          onChange={handleCountryRegionChange}
+          value={countryRegion}
+        >
+          <option value='' defaultValue>
+            Filter by Region
+          </option>
           <option>Africa</option>
           <option>Americas</option>
           <option>Asia</option>
           <option>Europe</option>
           <option>Oceania</option>
-        </datalist>
+        </select>
       </section>
       <section className='countries-container'>
-        {filterCountryByName.map((country) => (
+        {filterCountryByRegion.map((country) => (
           <div className='country-card' key={country.numericCode}>
             <img className='country-card-flag' src={country.flag} alt='' />
             <h2 className='country-card-title'>{country.name}</h2>
