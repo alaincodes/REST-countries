@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import Navbar from './components/Navbar';
+import CountryForm from './components/CountryForm';
+import CountryCard from './components/CountryCard';
+
 import './App.scss';
 
-function App() {
+export default function App() {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState('');
   const [countryRegion, setCountryRegion] = useState('');
@@ -39,54 +43,15 @@ function App() {
 
   return (
     <div>
-      <nav className='navbar-container'>
-        <h1 className='navbar-title'>Where in the world ?</h1>
-        <button className='navbar-btn'>Dark Mode</button>
-      </nav>
-      <section className='filter-container'>
-        <input
-          placeholder='Search for a country..'
-          type='search'
-          value={countryName}
-          onChange={handleCountryNameChange}
-        />
-        <select
-          placeholder='Filter by Region'
-          className='filter-region'
-          id='regions'
-          onChange={handleCountryRegionChange}
-          value={countryRegion}
-        >
-          <option value='' defaultValue>
-            Filter by Region
-          </option>
-          <option>Africa</option>
-          <option>Americas</option>
-          <option>Asia</option>
-          <option>Europe</option>
-          <option>Oceania</option>
-        </select>
-      </section>
-      <section className='countries-container'>
-        {filterCountryByRegion.map((country) => (
-          <div className='country-card' key={country.numericCode}>
-            <img className='country-card-flag' src={country.flag} alt='' />
-            <h2 className='country-card-title'>{country.name}</h2>
-            <aside className='country-card-description'>
-              <p>
-                Population:{' '}
-                {country.population
-                  .toString()
-                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}
-              </p>
-              <p>Region: {country.region}</p>
-              <p>Capital: {country.capital}</p>
-            </aside>
-          </div>
-        ))}
-      </section>
+      <Navbar />
+      <CountryForm
+        countryName={countryName}
+        countryRegion={countryRegion}
+        handleCountryNameChange={handleCountryNameChange}
+        handleCountryRegionChange={handleCountryRegionChange}
+      />
+      <CountryCard filterCountryByRegion={filterCountryByRegion} />
     </div>
   );
 }
 
-export default App;

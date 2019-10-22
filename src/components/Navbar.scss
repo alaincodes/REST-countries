@@ -1,0 +1,24 @@
+@import './colors';
+
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  background: $very-ligh-gray;
+  border-bottom: rgb(238, 238, 238);
+  box-shadow: 0 7px 6px -6px rgb(199, 199, 199);
+  .navbar-title {
+    padding: 1rem;
+  }
+  .navbar-btn {
+    background: transparent;
+    border: transparent;
+    display: flex;
+    background: url('../images/moon.svg') no-repeat 5px 23px;
+    background-size: 20px;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
