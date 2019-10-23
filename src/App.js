@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import CountryDetails from './components/CountryDetails';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import CountryForm from './components/CountryForm';
 import CountryCard from './components/CountryCard';
@@ -14,7 +15,7 @@ export default function App() {
 
   useEffect(() => {
     axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
-      // console.log(response.data);
+      console.log(response.data);
       setCountries(response.data);
     });
   }, []);
@@ -23,10 +24,11 @@ export default function App() {
     return country.name.toLowerCase().indexOf(countryName.toLowerCase()) !== -1;
   });
 
-  // Filter Regions with FilterCountryByName is the only solution I found to
-  // filter by Regions..
-  // I might use conditional rendering because it's a little bit tricky
-  // to understand but it works for now..
+  /** Filter Regions with FilterCountryByName is the only solution I found to
+    filter by Regions..
+    I might use conditional rendering because it's a little bit tricky
+    to understand but it works for now.. 
+  */
   const filterCountryByRegion = filterCountryByName.filter((country) => {
     return (
       country.region.toLowerCase().indexOf(countryRegion.toLowerCase()) !== -1
@@ -42,16 +44,28 @@ export default function App() {
   };
 
   return (
-    <div>
-      <Navbar />
-      <CountryForm
-        countryName={countryName}
-        countryRegion={countryRegion}
-        handleCountryNameChange={handleCountryNameChange}
-        handleCountryRegionChange={handleCountryRegionChange}
-      />
-      <CountryCard filterCountryByRegion={filterCountryByRegion} />
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <CountryForm
+          countryName={countryName}
+          countryRegion={countryRegion}
+          handleCountryNameChange={handleCountryNameChange}
+          handleCountryRegionChange={handleCountryRegionChange}
+        />
+
+        <Switch>
+          <Route exact path='/'>
+            <CountryCard filterCountryByRegion={filterCountryByRegion} />
+          </Route>
+          <Route path='/home' component={Home} />
+          <Route path='/:id' component={CountryDetails} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
+function Home() {
+  return <h1>HOME PAGE</h1>;
+}

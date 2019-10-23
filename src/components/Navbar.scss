@@ -8,6 +8,7 @@
   box-shadow: 0 7px 6px -6px rgb(199, 199, 199);
   .navbar-title {
     padding: 1rem;
+    color: $very-dark-blue-text;
   }
   .navbar-btn {
     background: transparent;
@@ -17,6 +18,9 @@
     background-size: 20px;
     padding: 1rem 2rem;
     font-weight: 600;
+    // Not same line height between Mozilla and Chrome... Looking for answers..
+    // 2.5 is good for both now, and changed to 1.6 for media-queries.
+    line-height: 2.5;
     &:hover {
       cursor: pointer;
     }

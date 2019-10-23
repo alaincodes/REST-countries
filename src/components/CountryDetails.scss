@@ -1,0 +1,26 @@
+.country-details-btn {
+  margin: 1rem;
+  padding: 1rem 3rem;
+  background: transparent;
+  border: none;
+  box-shadow: 1px 1px 2px 1px rgb(199, 199, 199);
+  border-radius: 2px;
+  background: url(../images/arrow-back.svg) no-repeat 8px 10px;
+  background-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.country-details-container {
+  display: flex;
+  justify-content: center;
+
+  .country-flag {
+    width: 400px;
+    margin: 1rem;
+  }
+  .country-details {
+    display: flex;
+    margin: 1rem;
+  }
+}

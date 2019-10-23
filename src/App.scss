@@ -9,6 +9,8 @@
     .navbar-btn {
       background: url('./images/moon.svg') no-repeat 1px 15px;
       background-size: 15px;
+      // To get same ish result in Mozilla and Chrome.. Still don't understand..
+      line-height: 1.6;
     }
   }
   .countries-container {
