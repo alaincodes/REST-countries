@@ -1,4 +1,10 @@
-# TODO >> RESPONSIVENESS - THEME SWITCHER - SINGLE COUNTRY INFORMATION PAGE.
+# TODO >> RESPONSIVENESS [v] - THEME SWITCHER [v] - SINGLE COUNTRY INFORMATION PAGE [v].
+
+Issues:
+  - Theme switcher not switching entire content and bad coding.
+  - Single Country Page, cannot select countries borders yet..
+  - Can't loop though countries borders to display correctly, still trying to figure it out..
+  - Sometimes website is stuck and chrome crash, I guess something wrong with useEffect on CountryCard.. but not sure.
 
 # Frontend Mentor - REST Countries API with color theme switcher
 
