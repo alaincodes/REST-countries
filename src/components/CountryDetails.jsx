@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './CountryDetails.scss';
+import { Link } from 'react-router-dom';
+import countriesAPI from '../services/countriesAPI';
+
+const formatArrayItem = (item = []) => {
+  if (item.length < 1) {
+    return '';
+  }
+  const formattedItem = item.map(({ name }) => name);
+  return formattedItem.join(', ');
+};
 
 export default function CountryDetails({ match }) {
   useEffect(() => {
-    const fetchCountry = async () => {
-      const fetchCountry = await fetch(
-        `https://restcountries.eu/rest/v2/alpha/${match.params.id}`,
-      );
-      const country = await fetchCountry.json();
-      setCountry(country);
-      console.log(country);
-    };
-    fetchCountry();
+    countriesAPI
+      .getUniqueCountry(match.params.id)
+      .then((country) => {
+        setCountry(country);
+      })
+      .catch((err) => err.message);
   }, [match.params.id]);
 
   const [country, setCountry] = useState({});
@@ -19,26 +26,48 @@ export default function CountryDetails({ match }) {
   return (
     <>
       <div className='country-details-container'>
-        <button className='country-details-btn'>Back</button>
-        <img className='country-flag' src={country.flag} alt='country flag' />
-        <article className='country-details'>
-          <div>
-            <h1>{country.name}</h1>
-            <p>Native Name: {country.nativeName}</p>
-            <p>Population: {country.population}</p>
-            <p>Region: {country.region}</p>
-            <p>Sub Region: {country.subregion}</p>
-            <p>Capital: {country.capital}</p>
-          </div>
-          <div>
-            <p>Top Level Domain: {/* {country.topLevelDomain} */}</p>
-            <p>Currencies: {/* {country.currencies} */}</p>
-            <p>Languages:{/* {country.languages} */}</p>
-          </div>
-        </article>
-        <div>
-          <p>Borders: </p>
+        <div className='country-btn-img'>
+          <Link to='/'>
+            <button className='country-details-btn'>Back</button>
+          </Link>
+          <img className='country-flag' src={country.flag} alt='country flag' />
         </div>
+        <article className='country-details'>
+          <h1>{country.name}</h1>
+          <div className='country-details-list'>
+            <ul>
+              <li>
+                <b>Native Name:</b> {country.nativeName}
+              </li>
+              <li>
+                <b>Population:</b> {country.population}
+              </li>
+              <li>
+                <b>Region:</b> {country.region}
+              </li>
+              <li>
+                <b>Sub Region:</b> {country.subregion}
+              </li>
+              <li>
+                <b>Capital:</b> {country.capital}
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <b>Top Level Domain:</b> {country.topLevelDomain}
+              </li>
+              <li>
+                <b>Currencies:</b> {formatArrayItem(country.currencies)}
+              </li>
+              <li>
+                <b>Languages:</b> {formatArrayItem(country.languages)}
+              </li>
+            </ul>
+          </div>
+          <p className='country-details-borders'>
+            <b>Borders:</b> {country.borders}
+          </p>
+        </article>
       </div>
     </>
   );

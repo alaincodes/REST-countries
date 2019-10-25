@@ -1,71 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { Suspense } from 'react';
+import styled from '@emotion/styled';
+import { useTheme } from './ThemeContext';
 import CountryDetails from './components/CountryDetails';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import CountryForm from './components/CountryForm';
-import CountryCard from './components/CountryCard';
 
 import './App.scss';
+const CountryCard = React.lazy(() => import('./components/CountryCard'));
 
-export default function App() {
-  const [countries, setCountries] = useState([]);
-  const [countryName, setCountryName] = useState('');
-  const [countryRegion, setCountryRegion] = useState('');
+const Wrapper = styled('div')`
+  background: ${(props) => props.theme.background};
 
-  useEffect(() => {
-    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
-      console.log(response.data);
-      setCountries(response.data);
-    });
-  }, []);
+  h1,
+  h2,
+  p,
+  ul,
+  li,
+  nav,
+  button,
+  a {
+    color: ${(props) => props.theme.body};
+  }
+`;
 
-  const filterCountryByName = countries.filter((country) => {
-    return country.name.toLowerCase().indexOf(countryName.toLowerCase()) !== -1;
-  });
-
-  /** Filter Regions with FilterCountryByName is the only solution I found to
-    filter by Regions..
-    I might use conditional rendering because it's a little bit tricky
-    to understand but it works for now.. 
-  */
-  const filterCountryByRegion = filterCountryByName.filter((country) => {
-    return (
-      country.region.toLowerCase().indexOf(countryRegion.toLowerCase()) !== -1
-    );
-  });
-
-  const handleCountryNameChange = (event) => {
-    setCountryName(event.target.value);
-  };
-
-  const handleCountryRegionChange = (event) => {
-    setCountryRegion(event.target.value);
-  };
+export default function App({ filterCountryByRegion }) {
+  const themeState = useTheme();
 
   return (
     <Router>
-      <div>
-        <Navbar />
-        <CountryForm
-          countryName={countryName}
-          countryRegion={countryRegion}
-          handleCountryNameChange={handleCountryNameChange}
-          handleCountryRegionChange={handleCountryRegionChange}
-        />
-
+      <Wrapper>
+        <Navbar themeState={themeState} />
         <Switch>
           <Route exact path='/'>
-            <CountryCard filterCountryByRegion={filterCountryByRegion} />
+            <Suspense fallback={<div className='loader'></div>}>
+              <CountryCard filterCountryByRegion={filterCountryByRegion} />
+            </Suspense>
           </Route>
-          <Route path='/home' component={Home} />
           <Route path='/:id' component={CountryDetails} />
         </Switch>
-      </div>
+      </Wrapper>
     </Router>
   );
-}
-
-function Home() {
-  return <h1>HOME PAGE</h1>;
 }

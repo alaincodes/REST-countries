@@ -1,29 +1,26 @@
 .filter-container {
   display: flex;
   justify-content: space-between;
-
-  margin: 0.4rem auto;
+  margin: auto;
   padding: 1rem 1rem;
   max-width: 1340px;
   input[type='search'] {
     background: transparent;
     border: transparent;
-    box-shadow: 1px 1px 2px 1px rgb(199, 199, 199);
-    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
     padding: 1rem 3rem;
     background: url(../images/search.svg) no-repeat 6px 7px;
     background-size: 30px;
     width: 35%;
-    // &::placeholder {
-    //   padding-left: 1rem;
-    // }
   }
   .filter-region {
     background: transparent;
     border: transparent;
-    box-shadow: 1px 1px 2px 1px rgb(199, 199, 199);
-    border-radius: 2px;
-    padding: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+    padding: 0.6rem auto;
     width: 15%;
+    color: hsl(0, 0%, 52%);
   }
 }

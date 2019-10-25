@@ -3,20 +3,19 @@
 .navbar-container {
   display: flex;
   justify-content: space-around;
-  background: $very-ligh-gray;
-  border-bottom: rgb(238, 238, 238);
-  box-shadow: 0 7px 6px -6px rgb(199, 199, 199);
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   .navbar-title {
     padding: 1rem;
-    color: $very-dark-blue-text;
   }
   .navbar-btn {
     background: transparent;
     border: transparent;
     display: flex;
-    background: url('../images/moon.svg') no-repeat 5px 23px;
-    background-size: 20px;
-    padding: 1rem 2rem;
+    background: url('../images/moon.svg') no-repeat 7px 22px;
+    background-size: 19px;
+    padding: 0.2rem 2rem;
     font-weight: 600;
     // Not same line height between Mozilla and Chrome... Looking for answers..
     // 2.5 is good for both now, and changed to 1.6 for media-queries.

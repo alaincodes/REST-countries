@@ -1,6 +1,42 @@
 @import './components/colors';
 
-@media only screen and (max-width: 1024px) {
+// Loading animation ------------
+.loader {
+  border: 16px solid $white;
+  border-radius: 50%;
+  border-top: 16px solid $very-dark-blue;
+  border-right: 16px solid $dark-gray;
+  border-bottom: 16px solid $dark-blue;
+  border-left: 16px solid $very-light-gray;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+  margin: 17rem auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// End of loading animation ----------
+
+@media only screen and (max-width: 375px) {
   html {
     font-size: 0.7rem;
   }
@@ -11,27 +47,6 @@
       background-size: 15px;
       // To get same ish result in Mozilla and Chrome.. Still don't understand..
       line-height: 1.6;
-    }
-  }
-  .countries-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin: auto 1rem;
-  }
-  .filter-container {
-    flex-direction: column;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-
-    input[type='search'] {
-      width: 90%;
-      margin: 0.5rem 1rem;
-      background: url(./images/search.svg) no-repeat 5px 8px;
-      background-size: 20px;
-    }
-    .filter-region {
-      width: 50%;
-      margin: 1rem 1rem;
     }
   }
 }

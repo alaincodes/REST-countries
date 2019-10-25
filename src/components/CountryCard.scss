@@ -38,3 +38,32 @@
     }
   }
 }
+
+@media only screen and (max-width: 375px) {
+  .filter-container {
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: flex-start;
+
+    input[type='search'] {
+      width: 90%;
+      margin: 0.5rem 1rem;
+      background: url(../images/search.svg) no-repeat 5px 8px;
+      background-size: 20px;
+    }
+    .filter-region {
+      width: 50%;
+      margin: 1rem 1rem;
+      padding: 0.8rem;
+      color: hsl(0, 0%, 52%);
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .countries-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin: auto 1rem;
+  }
+}
